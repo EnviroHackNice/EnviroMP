@@ -2,6 +2,7 @@ import flask
 import requests
 import datetime
 import json
+import os
 from db.scraper import main as mp_fetch
 from db.parties import main as party_fetch
 
@@ -10,11 +11,11 @@ API_KEY = "C6FuYkASnMvvCM4hJaBoukGK"
 
 app = flask.Flask(__name__)
 
-with open("mps_cache.json", "r") as f:
+with open(os.path.join("db", "mps_cache.json"), "r") as f:
 	mp_data = json.load(f)
 
-with open("parties.json", "r") as f:
-	party_data = json.load(f)
+# with open("parties.json", "r") as f:
+# 	party_data = json.load(f)
 
 def refetch_mp_data():
 	mp_fetch()
@@ -32,7 +33,7 @@ def inject_site_data():
 			# "url": "",
 			"version": "0.1.0",
 			# "google_analytics_id": "",
-			"year": datetime.now().year,
+			"year": datetime.datetime.now().year,
 		}
 	}
 
@@ -49,7 +50,7 @@ def send_res(path):
 	return flask.send_from_directory('res', path)
 
 # todo
-@app.route("/api/get_mp/<mpn:str>", methods=["GET"])
+@app.route("/api/get_mp/<mpn>", methods=["GET"])
 def api_get_mp(mpn):
 	for mp in mp_data:
 		if mp["mpn"] == mpn:
@@ -65,3 +66,10 @@ def api_get_parties():
 def api_get_mps():
 	serialized = json.dumps(mp_data)
 	return serialized
+
+@app.route("/")
+def index():
+	return flask.redirect("/mp-search")
+
+if __name__ == '__main__':
+	app.run()

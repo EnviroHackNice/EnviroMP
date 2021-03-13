@@ -16,9 +16,9 @@
         <div class="masthead">
             <div class="container">
                 <h3 class="masthead-title">
-                    <img src="/res/img/logo-800.png">
                     <div class="titleholder">
-                        <a href="/" title="Home">{{ site.title }}</a>
+                        <img src="/res/img/logo.png"></img>
+                        <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
                         <small>{{ site.tagline }}</small>
                     </div>
                 </h3>
@@ -30,10 +30,10 @@
         </div>
     </div>
 
-    {% if nosidebar %}
-    {% else %}
-    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
-    {% endif %}
+{#    {% if nosidebar %}#}
+{#    {% else %}#}
+{#    <label for="sidebar-checkbox" class="sidebar-toggle"></label>#}
+{#    {% endif %}#}
 
 {#    {% comment %}#}
 {#    {% comment %}#}

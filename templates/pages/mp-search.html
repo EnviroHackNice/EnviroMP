@@ -1,0 +1,43 @@
+{% extends 'page.html' %}
+
+{% block page_content %}
+<div class="mp-search">
+    <div class="mp-search-box">
+        <input class="mp-input" placeholder="Enter a name...">
+        <!-- <button class="mp-go">Go</button> -->
+    </div>
+
+    <div class="mp-list">
+{#        {% comment %}#}
+{#        <div class="mp-list-item expanded">#}
+{#            <div class="mp-meta-box">#}
+{#                <span class="mp-rank">#2</span>#}
+{#                <img src="https://members-api.parliament.uk/api/Members/172/Thumbnail"></img>#}
+{#                <div class="mp-meta">#}
+{#                    <h3 class="mp-name">Diane Abbott</h3>#}
+{#                    <h5 class="mp-constituency">Hackney North and Stoke Newington</h5>#}
+{#                </div>#}
+{#                <span class="mp-score">256</span>#}
+{#            </div>#}
+{##}
+{#            <div class="mp-breakdown">#}
+{#                <div class="mp-breakdown-item">#}
+{#                    <a class="mp-breakdown-policy">HS2</a>#}
+{#                    <span class="mp-breakdown-score">54</span>#}
+{#                </div>#}
+{#                <div class="mp-breakdown-item">#}
+{#                    <a class="mp-breakdown-policy">Climate Change</a>#}
+{#                    <span class="mp-breakdown-score">23</span>#}
+{#                </div>#}
+{#                <div class="mp-breakdown-item">#}
+{#                    <a class="mp-breakdown-policy">Bruh Moment</a>#}
+{#                    <span class="mp-breakdown-score">2</span>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endcomment %}#}
+    </div>
+</div>
+
+<script src='/res/js/mp-list.js'></script>
+{% endblock %}
