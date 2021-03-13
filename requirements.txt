@@ -1,0 +1,3 @@
+flask
+jinja
+beautifulsoup4

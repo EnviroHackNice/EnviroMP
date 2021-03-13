@@ -1,0 +1,42 @@
+{
+    "nigel_adams":{
+      "name": "Nigel Adams",
+      "constituency": "Selby and Ainsty",
+      "image": "https://members-api.parliament.uk/api/Members/4057/Thumbnail",
+      "email": "nigel.adams.mp@parliament.uk",
+      "score": 43.699999999999996,
+      "rank": "E",
+      "policies": [
+        {
+          "name": "Stop climate change",
+          "score": 28.9,
+          "url": "https://www.publicwhip.org.uk/mp.php?mpn=Nigel_Adams&mpc=Selby_and_Ainsty&house=commons&dmp=1030"
+        },
+        {
+          "name": "In favour of HS2",
+          "score": 50,
+          "url": "https://www.publicwhip.org.uk/mp.php?mpn=Nigel_Adams&mpc=Selby_and_Ainsty&house=commons&dmp=6753"
+        },
+        {
+          "name": "In favour of further regulation of shale gas extraction (fracking)",
+          "score": 50,
+          "url": "https://www.publicwhip.org.uk/mp.php?mpn=Nigel_Adams&mpc=Selby_and_Ainsty&house=commons&dmp=6741"
+        },
+        {
+          "name": "In favour of increasing air passenger duty tax",
+          "score": 100,
+          "url": "https://www.publicwhip.org.uk/mp.php?mpn=Nigel_Adams&mpc=Selby_and_Ainsty&house=commons&dmp=6699"
+        },
+        {
+          "name": "Against on shore wind turbines",
+          "score": 0,
+          "url": "https://www.publicwhip.org.uk/mp.php?mpn=Nigel_Adams&mpc=Selby_and_Ainsty&house=commons&dmp=6756"
+        },
+        {
+          "name": "In favour of further incentives for low carbon energy generation",
+          "score": 33.3,
+          "url": "https://www.publicwhip.org.uk/mp.php?mpn=Nigel_Adams&mpc=Selby_and_Ainsty&house=commons&dmp=6704"
+        }
+      ]
+    }
+}
