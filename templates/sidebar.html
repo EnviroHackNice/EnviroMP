@@ -1,0 +1,27 @@
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-item sidebar-title">
+        <center>
+            <img src="/res/img/logo.png">
+            <h3>{{ site.title }}</h3>
+        </center>
+        <p>A website to score, rank and compare MPs’ environmental-friendliness.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a class="sidebar-nav-item{% if title == 'MP Search' %} active{% endif %}"
+            href="/mp-search">MP Search</a>
+
+        <span class="sidebar-nav-item">Currently v{{ site.version }}</span>
+    </nav>
+
+    <div class="sidebar-item">
+        <p>
+            &copy; {{ site.date }}. All rights reserved.
+        </p>
+    </div>
+</div>
