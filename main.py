@@ -55,6 +55,7 @@ def api_get_mp(mpn):
 	for mp in mp_data:
 		if mp["mpn"] == mpn:
 			return json.dumps(mp)
+	return json.dumps({})
 
 @app.route("/api/get_parties", methods=["GET"])
 def api_get_parties():
@@ -64,8 +65,13 @@ def api_get_parties():
 # todo
 @app.route("/api/get_mps", methods=["GET"])
 def api_get_mps():
-	serialized = json.dumps(mp_data)
-	return serialized
+	ret = {}
+	for mp in mp_data:
+		try:
+			ret[mp["mpn"]] = mp["name"]
+		except:
+			pass
+	return json.dumps(ret)
 
 @app.route("/")
 def index():
