@@ -13,11 +13,14 @@ let searchTimeoutId = null;
 function addMpElm(mpn, data){
     let htmlBreakdown = "";
 
-    data["policies"].forEach(function(policy){
-        try {
-            htmlBreakdown += `<div class="mp-breakdown-item"><a class="mp-breakdown-policy" target="_blank" href="${policy.url}">${policy.name}</a><span class="mp-breakdown-score">${policy.score.toFixed(2)}</span></div>`;
-        } catch {}
-    });
+    try {
+        data["policies"].forEach(function (policy) {
+            try {
+                htmlBreakdown += `<div class="mp-breakdown-item"><a class="mp-breakdown-policy" target="_blank" href="${policy.url}">${policy.name}</a><span class="mp-breakdown-score">${policy.score.toFixed(2)}</span></div>`;
+            } catch {
+            }
+        });
+    } catch{}
 
     // wrap htmlBreakdown
     htmlBreakdown = '<div class="mp-breakdown">' + htmlBreakdown + '</div>';
@@ -66,6 +69,7 @@ function addMpElm(mpn, data){
 
     let elmListItem = document.createElement("div");
     elmListItem.classList.add("mp-list-item");
+    elmListItem.setAttribute("id", mpn);
     // elmListItem.classList.add("expanded");
     elmListItem.innerHTML = html;
     elmListItem.style.display = "none";
@@ -153,6 +157,7 @@ function searchMpns(query){
 }
 
 function showMpns(mpns){
+    console.log(mpns);
     // reqMps();
 
     // let all_mpns = Object.keys(mapMpnName);
@@ -194,23 +199,32 @@ function showMpns(mpns){
                         addMpElm(mpn, data);
 
                         let elm = mapMpElm[mpn];
-                        if (mpns.includes(mpn)) {
+                        // if (mpns.includes(mpn)) {
                             elm.style.display = "block";
-                        } else {
-                            elm.style.display = "none";
-                        }
-                    })
-                    .catch((err) => {
+                        // } else {
+                        //     elm.style.display = "none";
+                        // }
                     });
-            } else {
-            let elm = mapMpElm[mpn];
-            if (mpns.includes(mpn)) {
-                elm.style.display = "block";
-            } else {
-                elm.style.display = "none";
             }
+        // else {
+        //         let elm = mapMpElm[mpn];
+        //         if (mpns.includes(mpn)) {
+        //             elm.style.display = "block";
+        //         } else {
+        //             elm.style.display = "none";
+        //         }
+        //     }
+    });
+
+    // go through all in DOM and hide
+    document.querySelectorAll(".mp-list .mp-list-item").forEach(function(elm){
+        if (mpns.includes(elm.id)){
+            elm.style.display = "block";
+        } else {
+            elm.style.display = "none";
         }
     });
+
 }
 
 function hideAllDomMps(){
