@@ -41,6 +41,10 @@ def inject_site_data():
 def mp_search():
 	return flask.render_template(r"pages/mp-search.html", title="MP Search")
 
+@app.route("/email")
+def email():
+	return flask.render_template(r"pages/email.html", title="Email")
+
 @app.route("/mp-compare")
 def mp_compare():
 	return flask.render_template(r"pages/mp-compare.html", title="MP Compare")
@@ -56,16 +60,17 @@ def api_get_mp(mpn):
 		if mp["mpn"] == mpn:
 			return json.dumps(mp)
 
-@app.route("/api/get_parties", methods=["GET"])
+'''@app.route("/api/get_parties", methods=["GET"])
 def api_get_parties():
 	serialized = json.dumps(party_data)
-	return serialized
+	return serialized'''
 
 # todo
 @app.route("/api/get_mps", methods=["GET"])
 def api_get_mps():
 	serialized = json.dumps(mp_data)
 	return serialized
+
 
 @app.route("/")
 def index():
