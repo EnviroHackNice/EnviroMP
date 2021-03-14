@@ -38,6 +38,10 @@ def inject_site_data():
 		}
 	}
 
+@app.route("/about")
+def about():
+	return flask.render_template(r"pages/about.html", title="About")
+
 @app.route("/mp-search")
 def mp_search():
 	return flask.render_template(r"pages/mp-search.html", title="MP Search")
