@@ -41,7 +41,7 @@ def inject_site_data():
 def mp_search():
 	return flask.render_template(r"pages/mp-search.html", title="MP Search")
 
-@app.route("/email")
+@app.route("/email", methods = ["GET"])
 def email():
 	return flask.render_template(r"pages/email.html", title="Email")
 

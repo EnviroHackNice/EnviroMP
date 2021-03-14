@@ -51,9 +51,20 @@ function addMpElm(mpn, data){
     if ('constituency' in data) {
         htmlMetaBox += `<h5 class="mp-constituency">${data.constituency}</h5>`;
     }
+
+    if(`email` in data)
+    {
+        
+        htmlMetaBox += `<a href ="./email?mp=${data.name}&score=${data.score}&email=${data.email}" ><h5 class="mp-email">${data.email}</h5></a>`
+    }
     htmlMetaBox += `</div>`;
 
     htmlMetaBox += `<span class="mp-score">`;
+    /*htmlMetaBox += `<form action="./templates/pages/email.html" method="post">
+    <button type="submit" name="MpName" value="${data.name}" class="btn-link">Email 📧</button>
+    </form>`
+    */
+
     try {
         if(data.score > 0) {
             htmlMetaBox += data.score.toFixed(2);
