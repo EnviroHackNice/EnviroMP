@@ -38,6 +38,22 @@
 {#        {% endcomment %}#}
     </div>
 </div>
-
+<script>
+let elmMpInput = document.querySelector(".mp-input");
+</script>
 <script src='/res/js/mp-list.js'></script>
+<script>
+function start(){
+    elmMpInput.addEventListener("keyup", function() {
+        if(searchTimeoutId !== null){
+            clearTimeout(searchTimeoutId);
+        }
+
+        searchTimeoutId = setTimeout(function() {
+            search(elmMpInput.value);
+        }, 200);
+    });
+}
+start();
+</script>
 {% endblock %}

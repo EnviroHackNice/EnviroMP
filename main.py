@@ -13,6 +13,7 @@ app = flask.Flask(__name__)
 
 with open(os.path.join("db", "mps_cache.json"), "r") as f:
 	mp_data = json.load(f)
+print("loaded mp_data")
 
 # with open("parties.json", "r") as f:
 # 	party_data = json.load(f)
@@ -41,15 +42,44 @@ def inject_site_data():
 def mp_search():
 	return flask.render_template(r"pages/mp-search.html", title="MP Search")
 
-@app.route("/mp-compare")
-def mp_compare():
-	return flask.render_template(r"pages/mp-compare.html", title="MP Compare")
+# @app.route("/mp-compare")
+# def mp_compare():
+# 	return flask.render_template(r"pages/mp-compare.html", title="MP Compare")
+
+def get_policies():
+	policies = []
+	for mp in mp_data:
+		for policy_data in mp["policies"]:
+			policy_name = policy_data["name"]
+
+			if policy_name not in policies:
+				policies.append(policy_name)
+	return policies
+
+@app.route("/by-policy")
+def by_policy():
+	return flask.render_template(r"pages/by-policy.html", title="By Policy", policies=get_policies())
+
+@app.route("/by-policy/<target_policy>")
+def by_policy_page(target_policy):
+	data = {}
+	for mp in mp_data:
+		for policy_data in mp["policies"]:
+			policy_name = policy_data["name"]
+			# if policy_name not in data:
+			# 	data[policy_name] = {}
+			if policy_name.lower().replace(" ", "_") == target_policy:
+				value = {}
+				value.update(policy_data)
+				value.update(mp)
+				del value["policies"]
+				data[mp["name"]] = value
+	return flask.render_template(r"pages/by-policy.html", title="By Policy", policies=get_policies(), db_data=json.dumps(data))
 
 @app.route('/res/<path:path>')
 def send_res(path):
 	return flask.send_from_directory('res', path)
 
-# todo
 @app.route("/api/get_mp/<mpn>", methods=["GET"])
 def api_get_mp(mpn):
 	for mp in mp_data:
@@ -57,12 +87,6 @@ def api_get_mp(mpn):
 			return json.dumps(mp)
 	return json.dumps({})
 
-@app.route("/api/get_parties", methods=["GET"])
-def api_get_parties():
-	serialized = json.dumps(party_data)
-	return serialized
-
-# todo
 @app.route("/api/get_mps", methods=["GET"])
 def api_get_mps():
 	ret = {}
@@ -72,6 +96,22 @@ def api_get_mps():
 		except:
 			pass
 	return json.dumps(ret)
+
+# @app.route("/api/get_policies", methods=["GET"])
+# def api_get_policies():
+# 	ret = {}
+# 	for mp in mp_data:
+# 		try:
+# 			ret[mp["mpn"]] = mp["name"]
+# 		except:
+# 			pass
+# 	return json.dumps(ret)
+
+# todo
+@app.route("/api/get_parties", methods=["GET"])
+def api_get_parties():
+	serialized = json.dumps(party_data)
+	return serialized
 
 @app.route("/")
 def index():

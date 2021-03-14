@@ -2,7 +2,6 @@ const LEV_TOLERANCE = 2; // levenshtein distance tolerance for fuzzy search
 const MIN_QUERY_LENGTH = 2;
 
 let elmMpList = document.querySelector(".mp-list");
-let elmMpInput = document.querySelector(".mp-input");
 
 let mapMpElm = {};
 
@@ -10,34 +9,42 @@ let mapMpnName = {};
 
 let searchTimeoutId = null;
 
-function addMpElm(mpn, data){
+function addMpElm(mpn, data, policy_only=false){
     let htmlBreakdown = "";
 
-    try {
-        data["policies"].forEach(function (policy) {
+    if(!policy_only) {
+        if ('policies' in data) {
             try {
-                htmlBreakdown += `<div class="mp-breakdown-item"><a class="mp-breakdown-policy" target="_blank" href="${policy.url}">${policy.name}</a><span class="mp-breakdown-score">${policy.score.toFixed(2)}</span></div>`;
+                data["policies"].forEach(function (policy) {
+                    try {
+                        htmlBreakdown += `<div class="mp-breakdown-item"><a class="mp-breakdown-policy" target="_blank" href="${policy.url}">${policy.name}</a><span class="mp-breakdown-score">${policy.score.toFixed(2)}</span></div>`;
+                    } catch {
+                    }
+                });
             } catch {
             }
-        });
-    } catch{}
 
-    // wrap htmlBreakdown
-    htmlBreakdown = '<div class="mp-breakdown">' + htmlBreakdown + '</div>';
+            // wrap htmlBreakdown
+            htmlBreakdown = '<div class="mp-breakdown">' + htmlBreakdown + '</div>';
+        }
+    }
 
 
     let htmlMetaBox = "";
     htmlMetaBox += `<div class="mp-meta-box">`;
 
-    htmlMetaBox += `<span class="mp-rank">#`;
-    try{
-        if((data.rank + '').length > 0){
-            htmlMetaBox += `${data.rank}`;
-        } else {
-            htmlMetaBox += "N/A";
+    if(!policy_only) {
+        htmlMetaBox += `<span class="mp-rank">#`;
+        try {
+            if ((data.rank + '').length > 0) {
+                htmlMetaBox += `${data.rank}`;
+            } else {
+                htmlMetaBox += "N/A";
+            }
+        } catch {
         }
-    } catch {};
-    htmlMetaBox += `</span>`;
+        htmlMetaBox += `</span>`;
+    }
 
     if ('image' in data) {
         htmlMetaBox += `<img src="${data.image}">`;
@@ -54,13 +61,25 @@ function addMpElm(mpn, data){
     htmlMetaBox += `</div>`;
 
     htmlMetaBox += `<span class="mp-score">`;
-    try {
-        if(data.total_score > 0) {
-            htmlMetaBox += data.total_score.toFixed(2);
-        } else {
-            htmlMetaBox += "N/A";
+    if(!policy_only) {
+        try {
+            if (data.total_score > 0) {
+                htmlMetaBox += data.total_score.toFixed(2);
+            } else {
+                htmlMetaBox += "N/A";
+            }
+        } catch {
         }
-    } catch {}
+    }else{
+        try {
+            if (data.score > 0) {
+                htmlMetaBox += data.score.toFixed(2);
+            } else {
+                htmlMetaBox += "N/A";
+            }
+        } catch {
+        }
+    }
     htmlMetaBox += `</span>`;
     htmlMetaBox += `</div>`;
 
@@ -72,7 +91,11 @@ function addMpElm(mpn, data){
     elmListItem.setAttribute("id", mpn);
     // elmListItem.classList.add("expanded");
     elmListItem.innerHTML = html;
-    elmListItem.style.display = "none";
+    if(!policy_only) {
+        elmListItem.style.display = "none";
+    }else{
+        elmListItem.style.display = "block";
+    }
 
     // on click mp-meta box ...
     elmListItem.querySelector(".mp-meta-box").addEventListener("click", function() {
@@ -268,17 +291,3 @@ function search(query) {
         innerSearch(query);
     }
 }
-
-function start(){
-    elmMpInput.addEventListener("keyup", function() {
-        if(searchTimeoutId !== null){
-            clearTimeout(searchTimeoutId);
-        }
-
-        searchTimeoutId = setTimeout(function() {
-            search(elmMpInput.value);
-        }, 200);
-    });
-}
-
-start();

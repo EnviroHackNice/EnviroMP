@@ -1,0 +1,24 @@
+{% extends 'page.html' %}
+
+{% block page_content %}
+<div class="mp-policy-bar">
+{% for policy in policies %}
+    <a href="/by-policy/{{ policy | replace(" ", "_") | lower }}">{{ policy }}</a>
+{% endfor %}
+</div>
+<div class="mp-list">
+</div>
+
+<script src='/res/js/mp-list.js'></script>
+<script>
+    {% if db_data %}
+    let dbData = {{ db_data | safe }};
+    let values = Object.values(dbData);
+    let i = 0;
+    values.forEach(function(value){
+        addMpElm(i + '', value, true);
+        i+=1;
+    });
+    {% endif %}
+</script>
+{% endblock %}
