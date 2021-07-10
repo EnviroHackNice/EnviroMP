@@ -80,6 +80,10 @@ def by_policy_page(target_policy):
 				data[mp["name"]] = value
 	return flask.render_template(r"pages/by-policy.html", title="By Policy", policies=get_policies(), db_data=json.dumps(data))
 
+@app.route("/email", methods = ["GET"])
+def email():
+	return flask.render_template(r"pages/email.html", title="Email")
+	
 @app.route('/res/<path:path>')
 def send_res(path):
 	return flask.send_from_directory('res', path)
