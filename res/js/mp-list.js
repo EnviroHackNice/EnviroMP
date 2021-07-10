@@ -53,10 +53,19 @@ function addMpElm(mpn, data, policy_only=false){
     htmlMetaBox += `<div class="mp-meta">`;
     htmlMetaBox += `<h3 class="mp-name">${data.name}</h3>`;
     if ('party' in data) {
-        htmlMetaBox += `<h5 class="mp-party">${data.party}</h5>`;
+        htmlMetaBox += `<h5 class="mp-party">${data.party}`;
     }
     if ('constituency' in data) {
-        htmlMetaBox += `<h5 class="mp-constituency">${data.constituency}</h5>`;
+        htmlMetaBox += ` | ${data.constituency}</h5>`;
+    }
+    else
+    {
+        htmlMetaBox += `</h5>`
+    }
+    if(`email` in data)
+    {
+        
+        htmlMetaBox += `<a href ="/email?mp=${data.name}&score=${data.score}&email=${data.email}" ><h5 class="mp-email">${data.email}</h5></a>`
     }
     htmlMetaBox += `</div>`;
 

@@ -1,0 +1,46 @@
+{% extends 'page.html' %}
+
+{% block page_content %}
+
+<div class ="email" onload = "start()">
+    <div class = "form">
+
+        <form >
+            <label for="name">Full name:</label>
+            <br>
+            <input type="text" id="YourName" name="name">
+            <br>
+            <label for="address">Your Address and Postcode</label>
+            <br>
+            <input type="text" id="address" name="address">
+            
+            <br>
+            <label for="phone">Your phone number</label>
+            <br>
+            <input type="text" id="phone" name="phone">
+
+            <br>
+            <label for="mpName">Your MP's Name</label>
+            <br>
+            <input type="text" id="mpName" name="mpName">
+
+            <br>
+            
+            <button type="button" onclick="generateEmail()"> Generate Email </button>
+        </form>
+    
+
+        <textarea name = "emailText" rows = "10" cols = "80" id="emailText">
+
+
+        
+
+        </textarea>
+        <p> Email this to: <i id = "mpEmail" name = "mpEmail"></i> 
+        </p>
+    </div>
+</div>
+<script src = "/res/js/email.js">
+</script>
+
+{% endblock %}
