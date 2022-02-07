@@ -2,4 +2,3 @@ flask
 jinja2
 beautifulsoup4
 gunicorn
-wsgi
