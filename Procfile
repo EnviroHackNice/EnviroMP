@@ -1,1 +1,1 @@
-web: gunicorn enviromp.wsgi
+web: gunicorn app:app
